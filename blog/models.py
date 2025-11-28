@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.utils.text import slugify
+from taggit.managers import TaggableManager
 
 
 # Post model with a custom manager to retrieve published posts only
@@ -13,6 +14,9 @@ class PublishManager(models.Manager):
 
 # Blog Post model
 class Post(models.Model):
+    
+    tags = TaggableManager()
+    
     STATUS_CHOICES = (
         ("draft", "Draft"),
         ("published", "Published"),
