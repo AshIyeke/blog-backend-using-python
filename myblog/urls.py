@@ -17,10 +17,24 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
+from django.contrib.sitemaps.views import sitemap
+from blog.sitemaps import PostSitemap
+
+# Define the sitemaps
+sitemaps = {
+    "posts": PostSitemap,
+}
 
 urlpatterns = [
+    # Admin URL
     path("admin/", admin.site.urls),
-    # include() does not accept an `app_name` keyword — set `app_name` inside
-    # the included module (`blog/urls.py`) and pass `namespace` here.
+    # Blog URLs
     path("blog/", include("blog.urls", namespace="blog")),
+    # Sitemap URL
+    path(
+        "sitemap.xml",
+        sitemap,
+        {"sitemaps": sitemaps},
+        name="django.contrib.sitemaps.views.sitemap",
+    ),
 ]
