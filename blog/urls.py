@@ -12,4 +12,5 @@ urlpatterns = [
         name="post_detail",
     ),
     path("<int:post_id>/share/", views.post_share, name="post_share"),
+    # The comment URL is no longer needed as it's handled in post_detail
 ]
