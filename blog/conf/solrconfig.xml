@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<config>
+  <luceneMatchVersion>9.0.0</luceneMatchVersion>
+
+  <schemaFactory class="ClassicIndexSchemaFactory"/>
+
+  <dataDir>${solr.data.dir:}</dataDir>
+
+  <updateHandler class="solr.DirectUpdateHandler2">
+    <updateLog>
+      <str name="dir">${solr.ulog.dir:}</str>
+    </updateLog>
+    <autoCommit>
+      <maxTime>15000</maxTime>
+      <openSearcher>false</openSearcher>
+    </autoCommit>
+  </updateHandler>
+
+  <requestDispatcher handleSelect="false" >
+    <requestParsers enableRemoteStreaming="true" multipartUploadLimitInKB="2048000" />
+    <httpCaching never304="true" />
+  </requestDispatcher>
+
+  <requestHandler name="/select" class="solr.SearchHandler">
+    <lst name="defaults">
+      <str name="df">_text_</str>
+    </lst>
+  </requestHandler>
+
+  <requestHandler name="/update" class="solr.UpdateRequestHandler"/>
+
+</config>
